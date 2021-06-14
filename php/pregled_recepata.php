@@ -45,9 +45,11 @@ function recipeById(){
 }
 //function to get ingridient information for specific recipe. Note It is required to have bouth functions () called for full information on recipe.
 function recipeIgridientsByRecipeId(){
-    $recipe_id = $_GET['recipe_id']; // za pregled odredjenog recepta neophodno je proslediti id recepta pod nazivom promenljive recipe_id. Porebno je da bude isti ID kao za funkciju recipeById radi potpunih podataka.
+    $recipe_id = $_GET['recipe_id']; // za pregled odredjenog recepta neophodno je proslediti id recepta pod nazivom promenljive recipe_id.
+                                     // Porebno je da bude isti ID kao za funkciju recipeById radi potpunih podataka.
     $querryResaultIngridientsAndAmounts = $DB-querry("SELECT 
-                                                        `tags`.id AS ingridient_id, /* Dodeljen naziv ingridient_id radi lakseg razumevanja znacenja i funkcije u ostatku aplikacije */
+                                                        `tags`.id AS ingridient_id, /* Dodeljen naziv ingridient_id radi lakseg razumevanja
+                                                                                     znacenja i funkcije u ostatku aplikacije */
                                                         `tags`.ingredient_name,
                                                         `recipe_tag`.ingridient_amount
                                                     FROM `recipes` 
@@ -64,4 +66,14 @@ function recipeIgridientsByRecipeId(){
     return $ingridientsAndAmounts;
 }
 
+
+//Function to see all ingridients
+function seeAllIngridents(){
+    $querrySeeAllIngridients = $DB->querry("SELECT *
+                                            FROM `tags`;");
+
+    while($ingridient = $querrySeeAllIngridients->fetch_object()){
+        echo "<option>$ingridient</option>";
+    }
+}
 ?>
